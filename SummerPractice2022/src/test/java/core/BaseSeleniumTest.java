@@ -8,24 +8,35 @@ import org.junit.rules.ErrorCollector;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+/**
+ * Base abstract test
+ */
 public abstract class BaseSeleniumTest {
+
+    /**
+     * Launches the web interface
+     */
     protected WebDriver webDriver;
 
+    /**
+     * The ErrorCollector rule allows execution of a test to continue after the first problem is found
+     */
     @Rule
     public final ErrorCollector collector = new ErrorCollector();
 
+    /**
+     * Initializes webdriver and configure them
+     */
     @Before
     public void setUp(){
         WebDriverManager.chromedriver().setup();
         webDriver = new ChromeDriver();
-
-//        webDriver.manage().window().maximize();
-//        webDriver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
-//        webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-
         BaseSeleniumPage.setDriver(webDriver);
     }
 
+    /**
+     * Close webdriver and close browser
+     */
     @After
     public void tearDown(){
         webDriver.close();
