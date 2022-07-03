@@ -1,6 +1,9 @@
 package yandex;
 
 import core.BaseSeleniumTest;
+import exceptions.LogoNotFoundException;
+import org.junit.Assert;
+import org.junit.ComparisonFailure;
 import org.junit.Test;
 import yandex.pages.SearchPage;
 
@@ -13,11 +16,16 @@ public class Test2 extends BaseSeleniumTest {
 
     /**
      * Error check yandex logo text
+     * @throws LogoNotFoundException if logo does not match
      */
     @Test
     public void errorGetLogoTextTest() {
         SearchPage searchPage = new SearchPage();
         String logoText = searchPage.getLogoText();
-        collector.checkThat(logoText, is("яндекс"));
+        try {
+            Assert.assertEquals("яндекс", logoText);
+        } catch (Throwable e) {
+            collector.addError(new LogoNotFoundException("Logo does not match"));
+        }
     }
 }

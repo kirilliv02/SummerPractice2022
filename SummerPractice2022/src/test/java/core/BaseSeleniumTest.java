@@ -7,6 +7,7 @@ import org.junit.Rule;
 import org.junit.rules.ErrorCollector;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * Base abstract test
@@ -17,7 +18,6 @@ public abstract class BaseSeleniumTest {
      * Launches the web interface
      */
     protected WebDriver webDriver;
-
     /**
      * The ErrorCollector rule allows execution of a test to continue after the first problem is found
      */
