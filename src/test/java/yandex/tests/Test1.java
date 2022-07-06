@@ -1,4 +1,4 @@
-package yandex;
+package yandex.tests;
 
 import core.BaseSeleniumTest;
 import org.junit.Test;

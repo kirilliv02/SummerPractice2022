@@ -19,6 +19,7 @@
         <allure-maven.version>2.11.2</allure-maven.version>
         <webdrivermanager.version>5.2.0</webdrivermanager.version>
         <selenium-java.version>4.3.0</selenium-java.version>
+        <maven-javadoc-plugin.version>3.4.0</maven-javadoc-plugin.version>
 
     </properties>
 
@@ -62,6 +63,15 @@
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
                 <version>${allure-maven.version}</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc-plugin.version}</version>
+                <configuration>
+                    <sourcepath>${basedir}/src/test/java/yandex/tests</sourcepath>
+                </configuration>
             </plugin>
 
         </plugins>

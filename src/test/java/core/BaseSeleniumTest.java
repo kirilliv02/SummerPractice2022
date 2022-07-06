@@ -6,8 +6,9 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.ErrorCollector;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+import java.time.Duration;
 
 /**
  * Base abstract test
@@ -29,8 +30,9 @@ public abstract class BaseSeleniumTest {
      */
     @Before
     public void setUp(){
-        WebDriverManager.chromedriver().setup();
-        webDriver = new ChromeDriver();
+        WebDriverManager.firefoxdriver().setup();
+        webDriver = new FirefoxDriver();
+
         BaseSeleniumPage.setDriver(webDriver);
     }
 
@@ -38,8 +40,7 @@ public abstract class BaseSeleniumTest {
      * Close webdriver and close browser
      */
     @After
-    public void tearDown(){
-        webDriver.close();
+    public void tearDown()  {
         webDriver.quit();
     }
 
