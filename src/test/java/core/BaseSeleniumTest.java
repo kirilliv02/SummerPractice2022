@@ -1,10 +1,15 @@
 package core;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import logger.Logger;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.ErrorCollector;
+import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
+import org.junit.runner.notification.Failure;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -29,10 +34,9 @@ public abstract class BaseSeleniumTest {
      * Initializes webdriver and configure them
      */
     @Before
-    public void setUp(){
+    public void setUp() {
         WebDriverManager.firefoxdriver().setup();
         webDriver = new FirefoxDriver();
-
         BaseSeleniumPage.setDriver(webDriver);
     }
 
@@ -40,8 +44,10 @@ public abstract class BaseSeleniumTest {
      * Close webdriver and close browser
      */
     @After
-    public void tearDown()  {
+    public void tearDown() {
         webDriver.quit();
+        Logger.saveLogs(collector, this.getClass().getSimpleName());
     }
+
 
 }

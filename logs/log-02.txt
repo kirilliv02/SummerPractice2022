@@ -1,4 +1,0 @@
-[ERROR] LogoNotFoundException - Логотип не соответсвует
-[ERROR] DownloadBrowserLinkNotFoundException - Ссылка на скачивание браузера не соответсвует
-[ERROR] SearchInputPlaceholderNotFoundException - Подсказала поля ввода для поиска не соответсвует
-[ERROR] CityNameNotFoundException - Название города не соответсвует

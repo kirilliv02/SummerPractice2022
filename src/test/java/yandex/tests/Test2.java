@@ -25,7 +25,7 @@ public class Test2 extends BaseSeleniumTest {
         try {
             Assert.assertEquals("яндекс", logoText);
         } catch (Throwable e) {
-            collector.addError(new LogoNotFoundException("Logo does not match"));
+            collector.addError(new LogoNotFoundException("Название логотипа не соответствует"));
         }
     }
 }

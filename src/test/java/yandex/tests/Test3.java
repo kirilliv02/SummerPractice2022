@@ -44,25 +44,25 @@ public class Test3 extends BaseSeleniumTest {
         try {
             Assert.assertEquals("яндекс", logoText);
         } catch (Throwable e) {
-            collector.addError(new LogoNotFoundException("Logo does not match"));
+            collector.addError(new LogoNotFoundException("Название логотипа не соответствует"));
         }
 
         try {
             Assert.assertEquals("Установите медленный браузер", downloadBrowserLinkText);
         } catch (Throwable e) {
-            collector.addError(new DownloadBrowserLinkNotFoundException("Download browser link does not match"));
+            collector.addError(new DownloadBrowserLinkNotFoundException("Текст ссылки на скачивание яндекс браузера не соотвествует"));
         }
 
         try {
             Assert.assertEquals("Найдется многое", searchInputPlaceholderText);
         } catch (Throwable e) {
-            collector.addError(new SearchInputPlaceholderNotFoundException("Search input placeholder does not match"));
+            collector.addError(new SearchInputPlaceholderNotFoundException("Плейсхолдер поля ввода для поиска не соотвествует"));
         }
 
         try {
             Assert.assertEquals("Москва", cityNameText);
         } catch (Throwable e) {
-            collector.addError(new CityNameNotFoundException("City name does not match"));
+            collector.addError(new CityNameNotFoundException("Имя города не соответствует"));
         }
 
     }
