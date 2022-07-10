@@ -1,19 +1,16 @@
 package core;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Attachment;
 import logger.Logger;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.ErrorCollector;
-import org.junit.runner.JUnitCore;
-import org.junit.runner.Result;
-import org.junit.runner.notification.Failure;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-
-import java.time.Duration;
 
 /**
  * Base abstract test
@@ -30,6 +27,8 @@ public abstract class BaseSeleniumTest {
     @Rule
     public final ErrorCollector collector = new ErrorCollector();
 
+
+
     /**
      * Initializes webdriver and configure them
      */
@@ -38,6 +37,8 @@ public abstract class BaseSeleniumTest {
         WebDriverManager.firefoxdriver().setup();
         webDriver = new FirefoxDriver();
         BaseSeleniumPage.setDriver(webDriver);
+
+
     }
 
     /**
@@ -47,6 +48,16 @@ public abstract class BaseSeleniumTest {
     public void tearDown() {
         webDriver.quit();
         Logger.saveLogs(collector, this.getClass().getSimpleName());
+    }
+
+    @Attachment(value = "Description")
+    public String addDescription(String description){
+        return description;
+    }
+
+    @Attachment(value = "Screenshot", type = "image/png")
+    public byte[] addScreenshot() {
+        return ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.BYTES);
     }
 
 
