@@ -13,7 +13,7 @@ public class SearchPage extends BaseSeleniumPage {
     @FindBy(xpath = "//div[@class='search2__button']/button/span[@class='button__text']")
     private WebElement searchButtonText;
 
-    @FindBy(className = "yabrowser-promo__text-link")
+    @FindBy(className = "services-new__item-title")
     private WebElement downloadBrowserLinkText;
 
     @FindBy(className = "search2__placeholder")

@@ -1,12 +1,13 @@
 package yandex.tests;
 
 import core.BaseSeleniumTest;
+import exceptions.LogoNotFoundException;
+import io.qameta.allure.Allure;
 import io.qameta.allure.Description;
 import io.qameta.allure.Step;
+import io.qameta.allure.model.Status;
+import org.junit.Assert;
 import org.junit.Test;
-import yandex.pages.SearchPage;
-
-import static org.hamcrest.CoreMatchers.is;
 
 /**
  * First test from task
@@ -14,17 +15,28 @@ import static org.hamcrest.CoreMatchers.is;
 public class Test1 extends BaseSeleniumTest {
 
     /**
-     * Successful check yandex logo text without any errors
+     * Successful check yandex logo text without any errors.
      */
     @Test
-    @Description(useJavaDoc = true, value = "Successful check yandex logo text without any errors")
+    @Description(useJavaDoc = true)
     @Step("Get logo text")
     public void successGetLogoTextTest() {
-        SearchPage searchPage = new SearchPage();
         String logoText = searchPage.getLogoText();
-        collector.checkThat(logoText, is("Яндекс"));
 
-        addScreenshot();
+        try {
+            Assert.assertEquals("Яндекс", logoText);
+            addScreenshot();
+        } catch (Throwable e) {
+            String errorMessage = "Название логотипа не соответствует";
+            collector.addError(new LogoNotFoundException(errorMessage));
+
+            addScreenshot();
+            addDescription(errorMessage);
+
+
+            Allure.getLifecycle().updateStep((stepResult)->stepResult.setStatus(Status.FAILED));
+            Allure.getLifecycle().stopStep();
+        }
     }
 
 

@@ -43,8 +43,9 @@
                     <properties>
                         <property>
                             <name>listener</name>
-                            <value>io.qameta.allure.junit4.AllureJunit4</value>
+                            <value>listeners.Listener</value>
                         </property>
+
                     </properties>
                     <systemProperties>
                         <property>
@@ -68,14 +69,6 @@
                 <version>${allure-maven.version}</version>
             </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${maven-javadoc-plugin.version}</version>
-                <configuration>
-                    <sourcepath>${basedir}/src/test/java/yandex/tests</sourcepath>
-                </configuration>
-            </plugin>
 
         </plugins>
     </build>
@@ -110,6 +103,19 @@
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
             <version>${webdrivermanager.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-descriptions-javadoc</artifactId>
+            <version>${allure-junit4.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20220320</version>
         </dependency>
 
 

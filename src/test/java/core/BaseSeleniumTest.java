@@ -11,6 +11,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import yandex.pages.SearchPage;
 
 /**
  * Base abstract test
@@ -21,11 +22,14 @@ public abstract class BaseSeleniumTest {
      * Launches the web interface
      */
     protected WebDriver webDriver;
+    protected SearchPage searchPage;
     /**
      * The ErrorCollector rule allows execution of a test to continue after the first problem is found
      */
     @Rule
     public final ErrorCollector collector = new ErrorCollector();
+
+
 
 
 
@@ -37,17 +41,17 @@ public abstract class BaseSeleniumTest {
         WebDriverManager.firefoxdriver().setup();
         webDriver = new FirefoxDriver();
         BaseSeleniumPage.setDriver(webDriver);
-
-
+        searchPage = new SearchPage();
     }
 
     /**
      * Close webdriver and close browser
      */
     @After
-    public void tearDown() {
+    public void tearDown()  {
         webDriver.quit();
         Logger.saveLogs(collector, this.getClass().getSimpleName());
+
     }
 
     @Attachment(value = "Description")
@@ -59,6 +63,5 @@ public abstract class BaseSeleniumTest {
     public byte[] addScreenshot() {
         return ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.BYTES);
     }
-
 
 }

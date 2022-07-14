@@ -1,110 +1,139 @@
 package yandex.tests;
 
 import core.BaseSeleniumTest;
-import exceptions.CityNameNotFoundException;
-import exceptions.DownloadBrowserLinkNotFoundException;
-import exceptions.LogoNotFoundException;
-import exceptions.SearchInputPlaceholderNotFoundException;
+import exceptions.*;
+import io.qameta.allure.Allure;
 import io.qameta.allure.Description;
 import io.qameta.allure.Step;
+import io.qameta.allure.model.Status;
 import org.junit.Assert;
 import org.junit.Test;
-import yandex.pages.SearchPage;
-
-import java.util.NoSuchElementException;
-
-import static org.hamcrest.CoreMatchers.is;
 
 /**
  * Third test from task
  */
-public class Test3 extends BaseSeleniumTest {
-    /**
-     * Successful check search button text without any errors
-     * Error check yandex logo text
-     * Error check download browser link text
-     * Error check search input placeholder text
-     * Error check city name text
-     */
-    @Test(expected = NoSuchElementException.class)
-    @Description(useJavaDoc = true, value = "1 successful and 4 failed tests")
-    public void allTests() throws NoSuchElementException {
-        SearchPage searchPage = new SearchPage();
 
-        getSearchButtonTextTest(searchPage);
-        getLogoTextTest(searchPage);
-        getDownloadBrowserLinkTextTest(searchPage);
-        getSearchInputPlaceholderTextTest(searchPage);
-        getCityNameTextTest(searchPage);
+public class Test3 extends BaseSeleniumTest {
+
+
+    /**
+     * Successful check search button text without any errors.
+     * Error check yandex logo text.
+     * Error check download browser link text.
+     * Error check search input placeholder text.
+     * Error check city name text.
+     */
+    @Test(expected = CityNameNotFoundException.class)
+    @Description(useJavaDoc = true)
+    public void allTests() {
+        getSearchButtonTextTest();
+        getLogoTextTest();
+        getDownloadBrowserLinkTextTest();
+        getSearchInputPlaceholderTextTest();
+        getCityNameTextTest();
     }
 
     @Step("Get search button text test")
-    public void getSearchButtonTextTest(SearchPage searchPage){
+    public void getSearchButtonTextTest() {
         String searchButtonText = searchPage.getSearchButtonText();
 
-        collector.checkThat(searchButtonText, is("Найти"));
 
-        addScreenshot();
+        try {
+            Assert.assertEquals("Найти", searchButtonText);
+            addScreenshot();
+        } catch (Throwable e) {
+            String errorMessage = "Текст кнопки поиска не соответствует";
+            collector.addError(new SearchButtonNotFoundException(errorMessage));
+
+            addScreenshot();
+            addDescription(errorMessage);
+
+            Allure.addDescription(errorMessage);
+
+
+            Allure.getLifecycle().updateStep((stepResult)->stepResult.setStatus(Status.FAILED));
+            Allure.getLifecycle().stopStep();
+        }
     }
 
     @Step("Get logo text test")
-    public void getLogoTextTest(SearchPage searchPage){
+    public void getLogoTextTest() {
         String logoText = searchPage.getLogoText();
 
         try {
             Assert.assertEquals("яндекс", logoText);
+            addScreenshot();
         } catch (Throwable e) {
-            collector.addError(new LogoNotFoundException("Название логотипа не соответствует"));
-        }
+            String errorMessage = "Название логотипа не соответствует";
+            collector.addError(new LogoNotFoundException(errorMessage));
 
-        addScreenshot();
-        addDescription("Название логотипа не соответствует");
+            addScreenshot();
+            addDescription(errorMessage);
+
+            Allure.getLifecycle().updateStep((stepResult)->stepResult.setStatus(Status.FAILED));
+            Allure.getLifecycle().stopStep();
+        }
     }
 
     @Step("Get download browser link text test")
-    public void getDownloadBrowserLinkTextTest(SearchPage searchPage){
+    public void getDownloadBrowserLinkTextTest() {
         String downloadBrowserLinkText = searchPage.getDownloadBrowserLinkText();
 
         try {
-            Assert.assertEquals("Установите медленный браузер", downloadBrowserLinkText);
+            Assert.assertEquals("браузер", downloadBrowserLinkText);
+            addScreenshot();
         } catch (Throwable e) {
-            collector.addError(new DownloadBrowserLinkNotFoundException("Текст ссылки на скачивание яндекс браузера не соотвествует"));
-        }
+            String errorMessage = "Текст ссылки на скачивание яндекс браузера не соотвествует";
+            collector.addError(new DownloadBrowserLinkNotFoundException(errorMessage));
 
-        addScreenshot();
-        addDescription("Текст ссылки на скачивание яндекс браузера не соотвествует");
+            addScreenshot();
+            addDescription(errorMessage);
+
+            Allure.getLifecycle().updateStep((stepResult)->stepResult.setStatus(Status.FAILED));
+            Allure.getLifecycle().stopStep();
+        }
 
     }
 
     @Step("Get search input placeholder text test")
-    public void getSearchInputPlaceholderTextTest(SearchPage searchPage){
+    public void getSearchInputPlaceholderTextTest() {
         String searchInputPlaceholderText = searchPage.getSearchInputPlaceholderText();
+
 
         try {
             Assert.assertEquals("Найдется многое", searchInputPlaceholderText);
+            addScreenshot();
         } catch (Throwable e) {
-            collector.addError(new SearchInputPlaceholderNotFoundException("Плейсхолдер поля ввода для поиска не соотвествует"));
+            String errorMessage = "Плейсхолдер поля ввода для поиска не соотвествуе";
+            collector.addError(new SearchInputPlaceholderNotFoundException(errorMessage));
+
+            addScreenshot();
+            addDescription(errorMessage);
+
+            Allure.getLifecycle().updateStep((stepResult)->stepResult.setStatus(Status.FAILED));
+            Allure.getLifecycle().stopStep();
         }
-
-        addScreenshot();
-        addDescription("Плейсхолдер поля ввода для поиска не соотвествует");
-
     }
 
     @Step("Get city name text test")
-    public void getCityNameTextTest(SearchPage searchPage){
+    public void getCityNameTextTest() {
         String cityNameText = searchPage.getCityNameText();
+
 
         try {
             Assert.assertEquals("Москва", cityNameText);
+            addScreenshot();
         } catch (Throwable e) {
-            collector.addError(new CityNameNotFoundException("Имя города не соответствует"));
+            String errorMessage = "Имя города не соответствует";
+            collector.addError(new CityNameNotFoundException(errorMessage));
+
+            addScreenshot();
+            addDescription(errorMessage);
+
+            Allure.getLifecycle().updateStep((stepResult)->stepResult.setStatus(Status.FAILED));
+            Allure.getLifecycle().stopStep();
         }
-
-        addScreenshot();
-        addDescription("Имя города не соответствует");
     }
-
 
 
 }
