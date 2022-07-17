@@ -33,7 +33,6 @@ public class Test1 extends BaseSeleniumTest {
             addScreenshot();
             addDescription(errorMessage);
 
-
             Allure.getLifecycle().updateStep((stepResult)->stepResult.setStatus(Status.FAILED));
             Allure.getLifecycle().stopStep();
         }

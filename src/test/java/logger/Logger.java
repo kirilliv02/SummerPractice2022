@@ -1,5 +1,6 @@
 package logger;
 
+import exceptions.NotFoundException;
 import org.junit.rules.ErrorCollector;
 
 import java.io.File;
@@ -25,13 +26,15 @@ public class Logger {
         }
 
         if (!errors.isEmpty()) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
-            String date = dateFormat.format(new Date());
-
             File file = new File("logs/log-" + className + ".txt");
             try (PrintWriter writer = new PrintWriter(file, String.valueOf(StandardCharsets.UTF_8))) {
                 for (Throwable error : errors) {
-                    writer.println(date + " " + error.getMessage());
+                    try {
+                        NotFoundException exception = (NotFoundException) error;
+                        writer.println(exception.getTime() + " " + exception.getMessage());
+                    } catch (RuntimeException e) {
+                        throw new RuntimeException();
+                    }
                 }
             } catch (FileNotFoundException | UnsupportedEncodingException e) {
                 throw new RuntimeException(e);
